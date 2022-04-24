@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DoToo.Models
 {
-    class TodoItem
+    public class TodoItem
     {
         public int Id { get; set; }
 
