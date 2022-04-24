@@ -15,19 +15,24 @@ namespace DoToo.Repositories
         public event EventHandler<TodoItem> OnItemAdded;
         public event EventHandler<TodoItem> OnItemUpdated;
 
-        public Task<List<TodoItem>> GetItems()
+        public async Task<List<TodoItem>> GetItems()
         {
-            return null;
+            await CreateConnection();
+            return await connection.Table<TodoItem>().ToListAsync();
         }
 
-        public Task AddItem(TodoItem item)
+        public async Task AddItem(TodoItem item)
         {
-            return null;
+            await CreateConnection();
+            await connection.InsertAsync(item);
+            OnItemAdded?.Invoke(this, item);
         }
 
-        public Task UpdateItem(TodoItem item)
+        public async Task UpdateItem(TodoItem item)
         {
-            return null;
+            await CreateConnection();
+            await connection.UpdateAsync(item);
+            OnItemUpdated?.Invoke(this, item);
         }
 
         public async Task AddOrUpdate(TodoItem item)
